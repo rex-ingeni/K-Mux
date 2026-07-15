@@ -38,10 +38,11 @@ K-Mux는 **Claude Code**와 **Codex** CLI를 감싸는 macOS 앱입니다. 두 C
 ## 다운로드 & 설치
 
 1. [**최신 릴리스**](https://github.com/rex-ingeni/K-Mux/releases/latest)에서
-   `K-Mux-<버전>-arm64.zip`을 받습니다. *(Apple Silicon / macOS)*
-2. 압축을 풀고 `K-Mux.app`을 **응용 프로그램** 폴더로 옮긴 뒤 실행합니다.
+   `K-Mux-<버전>-arm64.dmg`를 받습니다. *(Apple Silicon / macOS)*
+2. DMG를 열고 **`K-Mux.app`을 `Applications` 폴더로 드래그**한 뒤 실행합니다.
 
-> 처음 실행 시 "확인되지 않은 개발자" 경고가 뜨면 **우클릭 → 열기**로 한 번만 허용하면 됩니다.
+> 처음 실행 시 "확인되지 않은 개발자" 경고가 뜨면 **우클릭 → 열기**로 한 번만 허용하면 됩니다.<br/>
+> *(함께 제공되는 `.app.zip`은 앱의 **자동 업데이트**가 사용하는 파일입니다 — 직접 받을 필요 없습니다.)*
 
 ## 자동 업데이트
 
