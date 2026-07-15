@@ -1,7 +1,7 @@
 {
-  "version": "0.1.1",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.1/K-Mux-0.1.1-arm64.zip",
-  "size": 104051389,
-  "sha256": "285bb0d6ed18ed794ac1dd368f4bdb8eb29c801aba8f494ebdc4f171edccf57b",
-  "notes": "자동 업데이트 테스트 0.1.1 (종료-확인 다이얼로그 우회 수정 포함)"
+  "version": "0.1.2",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.2/K-Mux-0.1.2-arm64.zip",
+  "size": 104051520,
+  "sha256": "7ba6851971e0fe8690af5a9558a49b12e5453ca040cb579bc27b6d235db8f6f8",
+  "notes": "0.1.2 — codex 중지(⏹) 수정 포함 운영 릴리스"
 }
