@@ -1,8 +1,8 @@
 {
-  "version": "0.1.3",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.3/K-Mux-0.1.3-arm64.zip",
-  "size": 100414047,
-  "sha256": "fc4b84201aa67208ab2774f0ec10a31524f47067542b052507a4a0b60e55917e",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.3/K-Mux-0.1.3-arm64.dmg",
-  "notes": "0.1.3 — node-pty 크래시(실행 직후 SIGABRT) 수정. PTY 콜백/전송이 파괴된 창으로 던지지 않도록 방어. 설치용 DMG(스타일) + 자동 업데이트 zip."
+  "version": "0.1.4",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.4/K-Mux-0.1.4-arm64.zip",
+  "size": 100792020,
+  "sha256": "83aee9df20604cac75a2e1501fa387509290fd456498117f4057ce91c30e457d",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.4/K-Mux-0.1.4-arm64.dmg",
+  "notes": "0.1.4 — 터미널 단축키(⌘K/⌘F/⌘C/⌘A) + 한글 입력 로케일 수정 + node-pty 크래시 수정. 설치용 DMG + 자동 업데이트 zip."
 }
