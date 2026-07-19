@@ -1,8 +1,8 @@
 {
-  "version": "0.1.4",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.4/K-Mux-0.1.4-arm64.zip",
-  "size": 100792020,
-  "sha256": "83aee9df20604cac75a2e1501fa387509290fd456498117f4057ce91c30e457d",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.4/K-Mux-0.1.4-arm64.dmg",
-  "notes": "0.1.4 — 터미널 단축키(⌘K/⌘F/⌘C/⌘A) + 한글 입력 로케일 수정 + node-pty 크래시 수정. 설치용 DMG + 자동 업데이트 zip."
+  "version": "0.1.5",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.5/K-Mux-0.1.5-arm64.zip",
+  "size": 100797332,
+  "sha256": "a42e9728cac28eb38d6583cc68914fbd45fe17cff5e166865184db2b8484448e",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.1.5/K-Mux-0.1.5-arm64.dmg",
+  "notes": "0.1.5 — Claude 모델 피커 + AI 응답 알림(사이드바 배지·분할 테두리) + 세션 헤더 아이콘/더블클릭 확대 + TUI ⌘A 수정. 설치용 DMG + 자동 업데이트 zip."
 }
