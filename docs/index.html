@@ -57,7 +57,7 @@
     .button.secondary { border-color: var(--line); color: var(--ink); background: var(--paper); }
     .button.secondary:hover { border-color: var(--accent); background: var(--accent-pale); }
     .hero-note { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
-    .hero-shot { margin: 46px auto 0; max-width: 1000px; }
+    .hero-shot { margin: 44px auto 0; max-width: 720px; }
     .hero-shot figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
       background: var(--black); box-shadow: 0 30px 60px rgba(34, 31, 29, .18); }
     .hero-shot img { display: block; width: 100%; height: auto; }
@@ -88,10 +88,13 @@
     .usage-hint { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--accent-dark); font-size: 13px; font-weight: 800; }
     .usage-figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--black); box-shadow: 0 16px 32px rgba(34, 31, 29, .12); }
     .usage-figure img { display: block; width: 100%; height: auto; }
-    .theme-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .theme-pair figure { margin: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--black); box-shadow: 0 16px 32px rgba(34, 31, 29, .12); }
+    /* theme step: full-width, emphasized — the app's look is the headline here */
+    .usage-step.theme-step { display: block; padding: 54px 0; }
+    .usage-step.theme-step .usage-copy { max-width: 720px; margin: 0 0 30px; }
+    .theme-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .theme-pair figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--black); box-shadow: 0 22px 44px rgba(34, 31, 29, .16); }
     .theme-pair img { display: block; width: 100%; height: auto; }
-    .theme-pair figcaption { padding: 8px 10px; color: var(--muted); font-size: 12px; text-align: center; background: var(--paper); }
+    .theme-pair figcaption { padding: 11px 12px; color: var(--muted); font-size: 13px; font-weight: 650; text-align: center; background: var(--paper); }
 
     .feature-band { background: var(--black); color: #f4f0ec; }
     .feature-band .section-kicker { color: #e29277; }
@@ -206,16 +209,16 @@
             </div>
             <figure class="usage-figure"><img src="assets/gui-tui.jpeg" alt="왼쪽 GUI 채팅과 오른쪽 실제 Claude·Codex 터미널이 같은 화면에 나란히"></figure>
           </article>
-          <article class="usage-step reverse">
+          <article class="usage-step theme-step">
+            <div class="usage-copy">
+              <span class="usage-number">02 · 내 눈에 맞게</span>
+              <h3>테마와 글씨 크기를 취향대로.</h3>
+              <p>라이트 · 다크 · 시스템 테마에 14가지 강조 색상을 스와치로 고릅니다. GUI와 터미널 커서 색까지 함께 바뀝니다. 글씨 크기는 <b>⌘+ / ⌘− / ⌘0</b> 이나 트랙패드 핀치 줌으로 GUI·터미널 모두 조절할 수 있습니다.</p>
+              <span class="usage-hint">🎨 14색 강조 · 🌗 라이트/다크 · 🔎 핀치 줌</span>
+            </div>
             <div class="theme-pair">
               <figure><img src="assets/theme-light.jpeg" alt="라이트 테마의 K-Mux 설정 화면과 색상 스와치"><figcaption>라이트 테마 + 색상 스와치</figcaption></figure>
               <figure><img src="assets/theme-dark.jpeg" alt="다크 테마의 K-Mux 설정 화면과 색상 스와치"><figcaption>다크 테마 + 색상 스와치</figcaption></figure>
-            </div>
-            <div class="usage-copy">
-              <span class="usage-number">02 · 내 눈에 맞게</span>
-              <h3>테마와 글씨 크기를<br>취향대로.</h3>
-              <p>라이트 · 다크 · 시스템 테마에 14가지 강조 색상을 스와치로 고릅니다. GUI와 터미널 커서 색까지 함께 바뀝니다. 글씨 크기는 <b>⌘+ / ⌘− / ⌘0</b> 이나 트랙패드 핀치 줌으로 GUI·터미널 모두 조절할 수 있습니다.</p>
-              <span class="usage-hint">🎨 14색 강조 · 🌗 라이트/다크 · 🔎 핀치 줌</span>
             </div>
           </article>
         </div>
