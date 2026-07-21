@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>K-Mux | Claude Code · Codex를 앱처럼</title>
-  <meta name="description" content="Claude Code와 Codex CLI를 감싸는 macOS 앱. 터미널 위에 얹은 GUI로 스트리밍 채팅·툴 카드·컨텍스트 게이지를 보고, 여러 세션을 분할 타일로 다룹니다.">
+  <meta name="description" content="Claude Code와 Codex CLI를 감싸는 macOS 앱. 터미널 위에 얹은 앱 화면으로 스트리밍 채팅·툴 카드·컨텍스트 게이지를 보고, 여러 세션을 분할 타일로 다룹니다.">
   <meta property="og:title" content="K-Mux | Claude Code · Codex를 앱처럼">
-  <meta property="og:description" content="터미널(TUI) 위에 얹은 GUI. 하나의 세션을 두 가지 얼굴로, 여러 세션을 한 화면에.">
+  <meta property="og:description" content="터미널 위에 얹은 앱 화면. 터미널과 GUI를 오가고, 여러 세션을 한 화면에.">
   <meta property="og:image" content="https://rex-ingeni.github.io/K-Mux/icon.png">
   <meta property="og:type" content="website">
   <link rel="icon" href="icon.png">
@@ -35,6 +35,14 @@
     a { color: inherit; text-decoration: none; }
     button, a { -webkit-tap-highlight-color: transparent; }
     .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .icon { display: inline-block; vertical-align: middle; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; width: 22px; height: 22px; }
+    .eyebrow .icon { width: 16px; height: 16px; }
+    .fact .ic { display: inline-flex; color: var(--accent-dark); }
+    .feature .ic .icon { width: 20px; height: 20px; color: #e29277; }
+    .usage-hint .icon { width: 16px; height: 16px; }
+    .button .icon { width: 17px; height: 17px; }
+    .permission-note .ic { display: inline-flex; color: var(--gold); }
+    .permission-note .ic .icon { width: 26px; height: 26px; }
 
     .topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(231, 222, 217, .92);
       background: rgba(255, 255, 255, .94); backdrop-filter: blur(14px); }
@@ -57,7 +65,8 @@
     .button.secondary { border-color: var(--line); color: var(--ink); background: var(--paper); }
     .button.secondary:hover { border-color: var(--accent); background: var(--accent-pale); }
     .hero-note { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
-    .hero-shot { margin: 44px auto 0; max-width: 720px; }
+    .hero-shot { margin: 44px auto 0; max-width: 940px; }
+    .hero-cap { margin-top: 16px; color: var(--muted); font-size: 13.5px; text-align: center; }
     .hero-shot figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
       background: var(--black); box-shadow: 0 30px 60px rgba(34, 31, 29, .18); }
     .hero-shot img { display: block; width: 100%; height: auto; }
@@ -155,6 +164,21 @@
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-term" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+    <symbol id="i-switch" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+    <symbol id="i-cols" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.6L3 18l3 3 6.1-6.1a4 4 0 0 0 5.6-5.6l-2.9 2.9-2.1-2.1z"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  </svg>
   <header class="topbar">
     <nav class="nav shell" aria-label="주요 메뉴">
       <a class="brand" href="#top"><img src="icon.png" alt="">K-Mux</a>
@@ -170,55 +194,55 @@
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
       <div class="shell">
-        <div class="eyebrow">🖥️ 터미널 위에 얹은 GUI</div>
-        <h1 id="hero-title">Claude Code와 Codex를,<br>앱처럼 씁니다.</h1>
-        <p class="hero-copy">K-Mux는 두 CLI가 내보내는 구조화된 스트림을 파싱해, 터미널 로그가 아니라 앱 스타일 채팅으로 보여줍니다. 하나의 세션을 터미널과 GUI로 오가고, 여러 세션을 한 화면에 나란히 띄웁니다.</p>
+        <div class="eyebrow"><svg class="icon"><use href="#i-term"/></svg>터미널 위에 얹은 앱</div>
+        <h1 id="hero-title">Claude Code와 Codex를, 앱처럼 씁니다.</h1>
+        <p class="hero-copy">K-Mux는 두 CLI가 내보내는 구조화된 스트림을 파싱해, 터미널 로그가 아니라 앱 스타일 채팅으로 보여줍니다. 터미널과 GUI를 오가고, 라이트·다크와 색상 테마로 내 눈에 맞게 꾸밉니다.</p>
         <div class="hero-actions">
-          <a class="button primary" href="https://github.com/rex-ingeni/K-Mux/releases/latest">⬇︎ macOS 다운로드</a>
+          <a class="button primary" href="https://github.com/rex-ingeni/K-Mux/releases/latest"><svg class="icon"><use href="#i-download"/></svg>macOS 다운로드</a>
           <a class="button secondary" href="https://github.com/rex-ingeni/K-Mux">GitHub 보기</a>
         </div>
-        <p class="hero-note">macOS (Apple Silicon) · Claude Code / Codex CLI 필요 · 무료</p>
+        <p class="hero-note">macOS (Apple Silicon) · Claude Code / Codex CLI 필요 · 앱 무료(MIT)</p>
         <div class="hero-shot">
-          <figure><img src="assets/overview.jpeg" alt="K-Mux에서 여러 세션을 분할 타일로 배치한 화면 — 왼쪽 GUI 채팅, 오른쪽 Claude·Codex 터미널과 셸"></figure>
-          <figcaption>한 화면에서 여러 세션을 분할 타일로 — 왼쪽은 GUI 채팅, 오른쪽은 Claude·Codex 터미널과 셸이 나란히.</figcaption>
+          <div class="theme-pair">
+            <figure><img src="assets/theme-light.jpeg" alt="라이트 테마의 K-Mux 화면과 색상 스와치"><figcaption>라이트 테마 + 색상 스와치</figcaption></figure>
+            <figure><img src="assets/theme-dark.jpeg" alt="다크 테마의 K-Mux 화면과 색상 스와치"><figcaption>다크 테마 + 색상 스와치</figcaption></figure>
+          </div>
+          <div class="hero-cap">라이트 · 다크 · 시스템 테마에 14가지 강조 색상 — GUI와 터미널까지 내 눈에 맞게.</div>
         </div>
       </div>
     </section>
 
     <div class="quick-facts">
       <div class="shell facts">
-        <div class="fact"><span class="ic">🔀</span><div><strong>TUI ↔ GUI 전환</strong><span>터미널과 GUI를 탭으로 자유롭게</span></div></div>
-        <div class="fact"><span class="ic">🪟</span><div><strong>분할 타일 · 그룹</strong><span>여러 세션을 한 화면에 나란히</span></div></div>
-        <div class="fact"><span class="ic">🎨</span><div><strong>테마 · 글씨 크기</strong><span>라이트/다크 · 14색 · 핀치 줌</span></div></div>
+        <div class="fact"><span class="ic"><svg class="icon"><use href="#i-switch"/></svg></span><div><strong>터미널 ↔ GUI 전환</strong><span>탭으로 자유롭게 오가기</span></div></div>
+        <div class="fact"><span class="ic"><svg class="icon"><use href="#i-cols"/></svg></span><div><strong>분할 타일 · 그룹</strong><span>여러 세션을 한 화면에 나란히</span></div></div>
+        <div class="fact"><span class="ic"><svg class="icon"><use href="#i-palette"/></svg></span><div><strong>테마 · 글씨 크기</strong><span>라이트/다크 · 14색 · 핀치 줌</span></div></div>
       </div>
     </div>
 
     <section id="usage" class="usage-showcase" aria-labelledby="usage-title">
       <div class="shell">
         <div class="section-top">
-          <div><p class="section-kicker">See it in use</p><h2 id="usage-title">터미널 그대로,<br>앱처럼 편하게.</h2></div>
-          <p class="section-intro">GUI는 CLI를 흉내 내지 않습니다 — 진짜 CLI는 그대로 두고, 같은 프로토콜을 파싱해 보여줍니다.</p>
+          <div><p class="section-kicker">See it in use</p><h2 id="usage-title">터미널 그대로, 앱처럼 편하게.</h2></div>
+          <p class="section-intro">앱 화면은 CLI를 흉내 내지 않습니다 — 진짜 CLI는 그대로 두고, 같은 프로토콜을 파싱해 보여줍니다.</p>
         </div>
         <div class="usage-steps">
           <article class="usage-step">
             <div class="usage-copy">
               <span class="usage-number">01 · 터미널과 GUI, 나란히</span>
-              <h3>터미널에서 쓰던 기능을<br>GUI에서 그대로.</h3>
-              <p>터미널 탭은 진짜 CLI(실 PTY)를 그대로 돌리고, GUI 탭은 그 CLI가 말하는 같은 스트림 프로토콜을 파싱해 그린 채팅입니다. 그래서 슬래시 커맨드·권한 모드·모델 선택·<code>/compact</code>까지 GUI에서 그대로 동작합니다. 한 세션에 두 탭이 함께 있고, 각 탭은 같은 폴더 위에서 도는 서로 독립된 대화입니다.</p>
-              <span class="usage-hint">💬 스트리밍 · 툴 카드 · 컨텍스트 압축 표시 · 권한 모드/모델 선택</span>
+              <h3>터미널에서 쓰던 기능을 그대로.</h3>
+              <p>터미널 탭은 진짜 CLI를 그대로 돌리고, GUI 탭은 그 CLI가 말하는 같은 스트림 프로토콜을 파싱해 그린 채팅입니다. 그래서 슬래시 커맨드·권한 모드·모델 선택·<code>/compact</code>까지 앱 화면에서 그대로 동작합니다. 한 세션에 두 탭이 함께 있고, 각 탭은 같은 폴더 위에서 도는 서로 독립된 대화입니다.</p>
+              <span class="usage-hint"><svg class="icon"><use href="#i-msg"/></svg>스트리밍 · 툴 카드 · 컨텍스트 압축 표시 · 권한 모드/모델 선택</span>
             </div>
             <figure class="usage-figure"><img src="assets/gui-tui.jpeg" alt="왼쪽 GUI 채팅과 오른쪽 실제 Claude·Codex 터미널이 같은 화면에 나란히"></figure>
           </article>
-          <article class="usage-step theme-step">
+          <article class="usage-step reverse">
+            <figure class="usage-figure"><img src="assets/overview.jpeg" alt="K-Mux에서 여러 세션을 분할 타일로 배치한 화면 — 왼쪽 GUI 채팅, 오른쪽 Claude·Codex 터미널과 셸"></figure>
             <div class="usage-copy">
-              <span class="usage-number">02 · 내 눈에 맞게</span>
-              <h3>테마와 글씨 크기를 취향대로.</h3>
-              <p>라이트 · 다크 · 시스템 테마에 14가지 강조 색상을 스와치로 고릅니다. GUI와 터미널 커서 색까지 함께 바뀝니다. 글씨 크기는 <b>⌘+ / ⌘− / ⌘0</b> 이나 트랙패드 핀치 줌으로 GUI·터미널 모두 조절할 수 있습니다.</p>
-              <span class="usage-hint">🎨 14색 강조 · 🌗 라이트/다크 · 🔎 핀치 줌</span>
-            </div>
-            <div class="theme-pair">
-              <figure><img src="assets/theme-light.jpeg" alt="라이트 테마의 K-Mux 설정 화면과 색상 스와치"><figcaption>라이트 테마 + 색상 스와치</figcaption></figure>
-              <figure><img src="assets/theme-dark.jpeg" alt="다크 테마의 K-Mux 설정 화면과 색상 스와치"><figcaption>다크 테마 + 색상 스와치</figcaption></figure>
+              <span class="usage-number">02 · 여러 세션을 한 화면에</span>
+              <h3>필요한 만큼 나눠서 나란히.</h3>
+              <p>세션을 분할 타일로 배치하고 경계를 드래그해 크기를 조절합니다. 상단바를 끌어 위치를 바꾸거나 나누고, 그룹으로 묶어 관리할 수 있습니다. Claude·Codex·셸을 한 화면에 나란히 두세요.</p>
+              <span class="usage-hint"><svg class="icon"><use href="#i-cols"/></svg>분할 타일 · 그룹 · 드래그로 재배치</span>
             </div>
           </article>
         </div>
@@ -228,19 +252,19 @@
     <section id="features" class="feature-band">
       <div class="shell">
         <div class="section-top">
-          <div><p class="section-kicker">More than a terminal</p><h2>CLI의 힘은 그대로,<br>보기는 앱처럼.</h2></div>
+          <div><p class="section-kicker">More than a terminal</p><h2>CLI의 힘은 그대로, 보기는 앱처럼.</h2></div>
           <p class="section-intro">터미널 로그로 흘려보내던 것들을, 필요한 형태로 정리해 보여줍니다.</p>
         </div>
         <div class="feature-grid">
-          <article class="feature"><div class="ic">💬</div><h3>실시간 스트리밍 채팅</h3><p>응답이 토큰 단위로 흐르고, 생각 과정은 접어서 봅니다.</p></article>
-          <article class="feature"><div class="ic">📝</div><h3>마크다운 · 코드 하이라이트</h3><p>링크 미리보기와 인라인 SVG 다이어그램까지 바로 렌더링.</p></article>
-          <article class="feature"><div class="ic">🧰</div><h3>툴 카드</h3><p>셸 실행 · 파일 편집 · MCP 툴 호출을 접이식 카드로 정리.</p></article>
-          <article class="feature"><div class="ic">📊</div><h3>컨텍스트 게이지</h3><p>남은 컨텍스트를 정확히, 압축되면 그 결과까지 표시.</p></article>
-          <article class="feature"><div class="ic">🪟</div><h3>분할 타일 · 그룹</h3><p>여러 세션을 나란히 배치하고 그룹으로 묶어 관리.</p></article>
-          <article class="feature"><div class="ic">🔒</div><h3>승인 카드 · 권한 모드</h3><p>샌드박스 밖 작업 허용/거부, 수동·자동 등 모드 선택.</p></article>
-          <article class="feature"><div class="ic">📥</div><h3>세션 가져오기</h3><p>cmux 워크스페이스나 실행 중인 tmux 세션을 불러오기.</p></article>
-          <article class="feature"><div class="ic">🌗</div><h3>메뉴바 트레이</h3><p>라이트/다크에 자동 적응하는 아이콘으로 언제든 접근.</p></article>
-          <article class="feature"><div class="ic">⬆️</div><h3>업데이트 알림 · 원클릭 설치</h3><p>새 버전을 자동 감지해 알려주고, 버튼 한 번으로 설치.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-msg"/></svg></div><h3>실시간 스트리밍 채팅</h3><p>응답이 실시간으로 이어져 도착하고, 생각 과정은 접어서 봅니다.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-file"/></svg></div><h3>마크다운 · 코드 하이라이트</h3><p>링크 미리보기와 인라인 SVG 다이어그램까지 바로 렌더링.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-tool"/></svg></div><h3>툴 카드</h3><p>셸 실행 · 파일 편집 · MCP 툴 호출을 접이식 카드로 정리.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-gauge"/></svg></div><h3>컨텍스트 게이지</h3><p>남은 컨텍스트를 한눈에, 압축되면 그 결과까지 표시.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-cols"/></svg></div><h3>분할 타일 · 그룹</h3><p>여러 세션을 나란히 배치하고 그룹으로 묶어 관리.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-shield"/></svg></div><h3>승인 카드 · 권한 모드</h3><p>권한이 필요한 작업 허용/거부, 수동·자동 등 모드 선택.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-download"/></svg></div><h3>세션 가져오기</h3><p>cmux 워크스페이스나 실행 중인 tmux 세션을 불러오기.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-moon"/></svg></div><h3>메뉴바 트레이</h3><p>라이트/다크에 자동 적응하는 아이콘으로 언제든 접근.</p></article>
+          <article class="feature"><div class="ic"><svg class="icon"><use href="#i-up"/></svg></div><h3>업데이트 알림 · 원클릭 설치</h3><p>새 버전을 자동 감지해 알려주고, 버튼 한 번으로 설치.</p></article>
         </div>
       </div>
     </section>
@@ -249,7 +273,7 @@
       <div class="shell install-grid">
         <div>
           <p class="section-kicker">Get started</p>
-          <h2>설치하고,<br>바로 시작하세요.</h2>
+          <h2>설치하고, 바로 시작하세요.</h2>
           <ol class="install-steps">
             <li><strong>최신 DMG를 다운로드합니다</strong><span>릴리스 페이지에서 <code>K-Mux-&lt;버전&gt;-arm64.dmg</code>를 받습니다. (Apple Silicon)</span></li>
             <li><strong>Applications 폴더로 옮깁니다</strong><span>DMG를 열고 K-Mux.app을 Applications 폴더로 드래그합니다.</span></li>
@@ -258,7 +282,7 @@
           </ol>
         </div>
         <aside class="permission-note">
-          <span class="ic">✅</span>
+          <span class="ic"><svg class="icon"><use href="#i-check"/></svg></span>
           <h3>업데이트는 원클릭으로</h3>
           <p>새 버전을 자동으로 감지해 좌측 하단 버튼과 메뉴바에 알림을 띄웁니다. 그 버튼을 누르면 다운로드 → 무결성 검증 → 교체 → 재실행까지 한 번에 진행됩니다(설치는 눌러야 시작). 함께 제공되는 <code>.app.zip</code>은 업데이트용이라 직접 받을 필요가 없습니다.</p>
         </aside>
@@ -267,10 +291,10 @@
 
     <section class="closing">
       <div class="shell">
-        <h2>터미널의 힘은 그대로,<br>이제 앱처럼 써보세요.</h2>
+        <h2>터미널의 힘은 그대로, 이제 앱처럼 써보세요.</h2>
         <p>Claude Code와 Codex를 한 창에서 채팅으로, 여러 세션을 나란히.</p>
         <div class="hero-actions">
-          <a class="button primary" href="https://github.com/rex-ingeni/K-Mux/releases/latest">⬇︎ macOS 다운로드</a>
+          <a class="button primary" href="https://github.com/rex-ingeni/K-Mux/releases/latest"><svg class="icon"><use href="#i-download"/></svg>macOS 다운로드</a>
           <a class="button secondary" href="https://github.com/rex-ingeni/K-Mux/releases">모든 릴리스</a>
         </div>
       </div>
