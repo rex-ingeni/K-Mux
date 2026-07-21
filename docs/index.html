@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>K-Mux | Claude Code · Codex를 앱처럼</title>
+  <meta name="description" content="Claude Code와 Codex CLI를 감싸는 macOS 앱. 터미널 위에 얹은 GUI로 스트리밍 채팅·툴 카드·컨텍스트 게이지를 보고, 여러 세션을 분할 타일로 다룹니다.">
+  <meta property="og:title" content="K-Mux | Claude Code · Codex를 앱처럼">
+  <meta property="og:description" content="터미널(TUI) 위에 얹은 GUI. 하나의 세션을 두 가지 얼굴로, 여러 세션을 한 화면에.">
+  <meta property="og:image" content="https://rex-ingeni.github.io/K-Mux/icon.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="icon.png">
+  <style>
+    :root {
+      --ink: #221f1d;
+      --muted: #6d655f;
+      --accent: #c96442;
+      --accent-dark: #a34a2e;
+      --accent-pale: #f8ece7;
+      --line: #e7ded9;
+      --paper: #ffffff;
+      --wash: #faf6f3;
+      --black: #1a1a1e;
+      --gold: #b8791f;
+      --gold-pale: #fbf3e0;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", sans-serif;
+      line-height: 1.55; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(231, 222, 217, .92);
+      background: rgba(255, 255, 255, .94); backdrop-filter: blur(14px); }
+    .nav { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; font-size: 17px; }
+    .brand img { width: 30px; height: 30px; border-radius: 7px; }
+    .nav-links { display: flex; align-items: center; gap: 21px; color: var(--muted); font-size: 14px; font-weight: 650; }
+    .nav-links a:hover { color: var(--accent-dark); }
+    .nav-release { color: var(--accent-dark); }
+
+    .hero { padding: 84px 0 40px; text-align: center; overflow: hidden; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-dark); font-weight: 800; font-size: 14px; }
+    h1 { margin: 16px auto 18px; max-width: 760px; font-size: clamp(42px, 6vw, 70px); line-height: 1.05; }
+    .hero-copy { max-width: 620px; margin: 0 auto; color: var(--muted); font-size: 19px; }
+    .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
+    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px;
+      padding: 0 20px; border: 1px solid transparent; border-radius: 8px; font-size: 15px; font-weight: 800; }
+    .button.primary { color: #fff; background: var(--accent); }
+    .button.primary:hover { background: #d5744f; }
+    .button.secondary { border-color: var(--line); color: var(--ink); background: var(--paper); }
+    .button.secondary:hover { border-color: var(--accent); background: var(--accent-pale); }
+    .hero-note { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
+    .hero-shot { margin: 46px auto 0; max-width: 1000px; }
+    .hero-shot figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+      background: var(--black); box-shadow: 0 30px 60px rgba(34, 31, 29, .18); }
+    .hero-shot img { display: block; width: 100%; height: auto; }
+    .hero-shot figcaption { margin-top: 14px; color: var(--muted); font-size: 13px; }
+
+    .quick-facts { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--wash); }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .fact { min-height: 96px; display: flex; align-items: center; gap: 13px; padding: 20px 24px; border-right: 1px solid var(--line); }
+    .fact:last-child { border-right: 0; }
+    .fact .ic { font-size: 22px; }
+    .fact strong { display: block; font-size: 14px; }
+    .fact span { display: block; margin-top: 2px; color: var(--muted); font-size: 13px; }
+
+    section { padding: 84px 0; }
+    .section-top { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+    .section-kicker { margin: 0 0 8px; color: var(--accent-dark); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+    h2 { margin: 0; font-size: clamp(29px, 4vw, 44px); line-height: 1.15; }
+    .section-intro { max-width: 440px; margin: 0; color: var(--muted); font-size: 16px; }
+
+    .usage-showcase { background: var(--wash); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .usage-steps { border-top: 1px solid var(--line); }
+    .usage-step { display: grid; grid-template-columns: minmax(0, .82fr) minmax(360px, 1.18fr); gap: 56px; align-items: center; padding: 46px 0; border-bottom: 1px solid var(--line); }
+    .usage-step.reverse { grid-template-columns: minmax(360px, 1.18fr) minmax(0, .82fr); }
+    .usage-step.reverse .usage-copy { order: 2; }
+    .usage-number { display: block; margin-bottom: 10px; color: var(--accent-dark); font-size: 13px; font-weight: 800; }
+    .usage-step h3 { margin: 0; font-size: 25px; line-height: 1.25; }
+    .usage-step p { margin: 12px 0 0; color: var(--muted); font-size: 16px; }
+    .usage-hint { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--accent-dark); font-size: 13px; font-weight: 800; }
+    .usage-figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--black); box-shadow: 0 16px 32px rgba(34, 31, 29, .12); }
+    .usage-figure img { display: block; width: 100%; height: auto; }
+    .theme-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .theme-pair figure { margin: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--black); box-shadow: 0 16px 32px rgba(34, 31, 29, .12); }
+    .theme-pair img { display: block; width: 100%; height: auto; }
+    .theme-pair figcaption { padding: 8px 10px; color: var(--muted); font-size: 12px; text-align: center; background: var(--paper); }
+
+    .feature-band { background: var(--black); color: #f4f0ec; }
+    .feature-band .section-kicker { color: #e29277; }
+    .feature-band .section-intro { color: #b9b2ac; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #34313a; border-left: 1px solid #34313a; }
+    .feature { min-height: 196px; padding: 26px; border-right: 1px solid #34313a; border-bottom: 1px solid #34313a; }
+    .feature .ic { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 8px; background: #3a271f; font-size: 20px; }
+    .feature h3 { margin: 17px 0 7px; font-size: 18px; }
+    .feature p { margin: 0; color: #b9b2ac; font-size: 14px; }
+
+    .install { background: var(--gold-pale); border-top: 1px solid #f0dfae; border-bottom: 1px solid #f0dfae; }
+    .install .section-kicker { color: #8e6510; }
+    .install-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 66px; align-items: center; }
+    .install-steps { list-style: none; padding: 0; margin: 29px 0 0; counter-reset: install; }
+    .install-steps li { position: relative; min-height: 74px; padding: 0 0 22px 54px; counter-increment: install; }
+    .install-steps li::before { content: counter(install); position: absolute; top: 0; left: 0; display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; background: var(--gold); color: #fff; font-size: 14px; font-weight: 800; }
+    .install-steps li:not(:last-child)::after { content: ""; position: absolute; top: 39px; bottom: 2px; left: 15px; width: 1px; background: #dfc778; }
+    .install-steps strong { display: block; font-size: 16px; }
+    .install-steps span { display: block; margin-top: 3px; color: #675d42; font-size: 14px; }
+    .permission-note { padding: 24px; border: 1px solid #ead294; border-radius: 10px; background: rgba(255, 255, 255, .6); }
+    .permission-note .ic { font-size: 24px; }
+    .permission-note h3 { margin: 12px 0 8px; font-size: 18px; }
+    .permission-note p { margin: 0; color: #675d42; font-size: 14px; }
+    .permission-note code { display: block; margin-top: 14px; overflow-x: auto; padding: 10px; border-radius: 6px; background: #fff; color: #554415; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+
+    .closing { padding: 84px 0; background: var(--accent-pale); text-align: center; }
+    .closing h2 { max-width: 700px; margin: 0 auto; }
+    .closing p { max-width: 540px; margin: 16px auto 26px; color: var(--muted); }
+    .closing .hero-actions { margin-top: 0; }
+
+    footer { padding: 32px 0 46px; background: var(--ink); color: #b9b2ac; }
+    .footer-row { display: flex; justify-content: space-between; gap: 22px; align-items: center; font-size: 13px; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: #e29277; }
+
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 58px; }
+      .facts, .feature-grid { grid-template-columns: 1fr; }
+      .fact { border-right: 0; border-bottom: 1px solid var(--line); }
+      .fact:last-child { border-bottom: 0; }
+      .install-grid { grid-template-columns: 1fr; gap: 34px; }
+      .section-top { display: block; }
+      .section-intro { margin-top: 14px; }
+      .usage-step, .usage-step.reverse { grid-template-columns: 1fr; gap: 24px; padding: 34px 0; }
+      .usage-step.reverse .usage-copy { order: 0; }
+    }
+    @media (max-width: 540px) {
+      .shell { width: min(100% - 30px, 1120px); }
+      .hero { padding: 46px 0 30px; }
+      h1 { font-size: 40px; }
+      .hero-copy { font-size: 17px; }
+      section { padding: 60px 0; }
+      .theme-pair { grid-template-columns: 1fr; }
+      .footer-row { display: block; }
+      .footer-links { margin-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav shell" aria-label="주요 메뉴">
+      <a class="brand" href="#top"><img src="icon.png" alt="">K-Mux</a>
+      <div class="nav-links">
+        <a href="#usage">사용 모습</a>
+        <a href="#features">기능</a>
+        <a href="#install">설치</a>
+        <a class="nav-release" href="https://github.com/rex-ingeni/K-Mux/releases">릴리스</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="shell">
+        <div class="eyebrow">🖥️ 터미널 위에 얹은 GUI</div>
+        <h1 id="hero-title">Claude Code와 Codex를,<br>앱처럼 씁니다.</h1>
+        <p class="hero-copy">K-Mux는 두 CLI가 내보내는 구조화된 스트림을 파싱해, 터미널 로그가 아니라 앱 스타일 채팅으로 보여줍니다. 하나의 세션을 터미널과 GUI로 오가고, 여러 세션을 한 화면에 나란히 띄웁니다.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/rex-ingeni/K-Mux/releases/latest">⬇︎ macOS 다운로드</a>
+          <a class="button secondary" href="https://github.com/rex-ingeni/K-Mux">GitHub 보기</a>
+        </div>
+        <p class="hero-note">macOS (Apple Silicon) · Claude Code / Codex CLI 필요 · 무료</p>
+        <div class="hero-shot">
+          <figure><img src="assets/overview.jpeg" alt="K-Mux에서 여러 세션을 분할 타일로 배치한 화면 — 왼쪽 GUI 채팅, 오른쪽 Claude·Codex 터미널과 셸"></figure>
+          <figcaption>한 화면에서 여러 세션을 분할 타일로 — 왼쪽은 GUI 채팅, 오른쪽은 Claude·Codex 터미널과 셸이 나란히.</figcaption>
+        </div>
+      </div>
+    </section>
+
+    <div class="quick-facts">
+      <div class="shell facts">
+        <div class="fact"><span class="ic">🔀</span><div><strong>TUI ↔ GUI 전환</strong><span>같은 세션을 터미널과 GUI로 자유롭게</span></div></div>
+        <div class="fact"><span class="ic">🪟</span><div><strong>분할 타일 · 그룹</strong><span>여러 세션을 한 화면에 나란히</span></div></div>
+        <div class="fact"><span class="ic">🎨</span><div><strong>테마 · 글씨 크기</strong><span>라이트/다크 · 14색 · 핀치 줌</span></div></div>
+      </div>
+    </div>
+
+    <section id="usage" class="usage-showcase" aria-labelledby="usage-title">
+      <div class="shell">
+        <div class="section-top">
+          <div><p class="section-kicker">See it in use</p><h2 id="usage-title">터미널 그대로,<br>앱처럼 편하게.</h2></div>
+          <p class="section-intro">GUI는 CLI를 흉내 내지 않습니다 — 진짜 CLI 위에 얹혀 같은 세션을 조종합니다.</p>
+        </div>
+        <div class="usage-steps">
+          <article class="usage-step">
+            <div class="usage-copy">
+              <span class="usage-number">01 · 같은 세션, 두 개의 얼굴</span>
+              <h3>터미널에서 쓰던 기능을<br>GUI에서 그대로.</h3>
+              <p>세션은 항상 실제 CLI(실 PTY) 위에서 돌고, GUI는 그 스트림을 파싱해 다시 그린 화면입니다. 그래서 슬래시 커맨드·권한 모드·모델 선택·<code>/compact</code>까지 GUI에서 그대로 동작합니다. 탭 하나에서 터미널 ↔ GUI를 오가도 하나의 세션입니다.</p>
+              <span class="usage-hint">💬 스트리밍 · 툴 카드 · 컨텍스트 압축 표시 · 권한 모드/모델 선택</span>
+            </div>
+            <figure class="usage-figure"><img src="assets/gui-tui.jpeg" alt="왼쪽 GUI 채팅과 오른쪽 실제 Claude·Codex 터미널이 같은 화면에 나란히"></figure>
+          </article>
+          <article class="usage-step reverse">
+            <div class="theme-pair">
+              <figure><img src="assets/theme-light.jpeg" alt="라이트 테마의 K-Mux 설정 화면과 색상 스와치"><figcaption>라이트 테마 + 색상 스와치</figcaption></figure>
+              <figure><img src="assets/theme-dark.jpeg" alt="다크 테마의 K-Mux 설정 화면과 색상 스와치"><figcaption>다크 테마 + 색상 스와치</figcaption></figure>
+            </div>
+            <div class="usage-copy">
+              <span class="usage-number">02 · 내 눈에 맞게</span>
+              <h3>테마와 글씨 크기를<br>취향대로.</h3>
+              <p>라이트 · 다크 · 시스템 테마에 14가지 강조 색상을 스와치로 고릅니다. GUI와 터미널 커서 색까지 함께 바뀝니다. 글씨 크기는 <b>⌘+ / ⌘− / ⌘0</b> 이나 트랙패드 핀치 줌으로 GUI·터미널 모두 조절할 수 있습니다.</p>
+              <span class="usage-hint">🎨 14색 강조 · 🌗 라이트/다크 · 🔎 핀치 줌</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="feature-band">
+      <div class="shell">
+        <div class="section-top">
+          <div><p class="section-kicker">More than a terminal</p><h2>CLI의 힘은 그대로,<br>보기는 앱처럼.</h2></div>
+          <p class="section-intro">터미널 로그로 흘려보내던 것들을, 필요한 형태로 정리해 보여줍니다.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><div class="ic">💬</div><h3>실시간 스트리밍 채팅</h3><p>응답이 토큰 단위로 흐르고, 생각 과정은 접어서 봅니다.</p></article>
+          <article class="feature"><div class="ic">📝</div><h3>마크다운 · 코드 하이라이트</h3><p>링크 미리보기와 인라인 SVG 다이어그램까지 바로 렌더링.</p></article>
+          <article class="feature"><div class="ic">🧰</div><h3>툴 카드</h3><p>셸 실행 · 파일 편집 · MCP 툴 호출을 접이식 카드로 정리.</p></article>
+          <article class="feature"><div class="ic">📊</div><h3>컨텍스트 게이지</h3><p>남은 컨텍스트를 정확히, 압축되면 그 결과까지 표시.</p></article>
+          <article class="feature"><div class="ic">🪟</div><h3>분할 타일 · 그룹</h3><p>여러 세션을 나란히 배치하고 그룹으로 묶어 관리.</p></article>
+          <article class="feature"><div class="ic">🔒</div><h3>승인 카드 · 권한 모드</h3><p>샌드박스 밖 작업 허용/거부, 수동·자동 등 모드 선택.</p></article>
+          <article class="feature"><div class="ic">📥</div><h3>세션 가져오기</h3><p>cmux 워크스페이스나 실행 중인 tmux 세션을 불러오기.</p></article>
+          <article class="feature"><div class="ic">🌗</div><h3>메뉴바 트레이</h3><p>라이트/다크에 자동 적응하는 아이콘으로 언제든 접근.</p></article>
+          <article class="feature"><div class="ic">⬆️</div><h3>자동 업데이트</h3><p>새 버전을 감지해 다운로드·검증·교체까지 자동으로.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="install">
+      <div class="shell install-grid">
+        <div>
+          <p class="section-kicker">Get started</p>
+          <h2>설치하고,<br>바로 시작하세요.</h2>
+          <ol class="install-steps">
+            <li><strong>최신 DMG를 다운로드합니다</strong><span>릴리스 페이지에서 <code>K-Mux-&lt;버전&gt;-arm64.dmg</code>를 받습니다. (Apple Silicon)</span></li>
+            <li><strong>Applications 폴더로 옮깁니다</strong><span>DMG를 열고 K-Mux.app을 Applications 폴더로 드래그합니다.</span></li>
+            <li><strong>처음 한 번 열기를 허용합니다</strong><span>“확인되지 않은 개발자” 경고가 뜨면 우클릭 → 열기로 한 번만 허용합니다.</span></li>
+            <li><strong>Claude Code / Codex를 준비합니다</strong><span>둘 중 하나 이상 CLI가 설치돼 있으면 세션을 열 수 있습니다.</span></li>
+          </ol>
+        </div>
+        <aside class="permission-note">
+          <span class="ic">✅</span>
+          <h3>자동 업데이트가 챙깁니다</h3>
+          <p>새 버전이 올라오면 좌측 하단 버튼과 메뉴바에 알림이 뜨고, 누르면 다운로드 → 무결성 검증 → 교체 → 재실행까지 자동으로 진행됩니다. 함께 제공되는 <code>.app.zip</code>은 자동 업데이트용이라 직접 받을 필요가 없습니다.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="shell">
+        <h2>터미널의 힘은 그대로,<br>이제 앱처럼 써보세요.</h2>
+        <p>Claude Code와 Codex를 한 창에서 채팅으로, 여러 세션을 나란히.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/rex-ingeni/K-Mux/releases/latest">⬇︎ macOS 다운로드</a>
+          <a class="button secondary" href="https://github.com/rex-ingeni/K-Mux/releases">모든 릴리스</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-row">
+      <span>K-Mux · Claude Code · Codex를 위한 macOS 데스크톱 앱</span>
+      <div class="footer-links"><a href="https://github.com/rex-ingeni/K-Mux">GitHub</a><a href="https://github.com/rex-ingeni/K-Mux/releases">릴리스</a><a href="https://github.com/rex-ingeni">rex-ingeni</a></div>
+    </div>
+  </footer>
+</body>
+</html>
