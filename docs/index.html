@@ -105,6 +105,12 @@
     .theme-pair img { display: block; width: 100%; height: auto; }
     .theme-pair figcaption { padding: 11px 12px; color: var(--muted); font-size: 13px; font-weight: 650; text-align: center; background: var(--paper); }
 
+    /* input section: editor-grade input capabilities */
+    .caps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .cap { padding: 22px 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .cap strong { display: block; font-size: 15px; }
+    .cap span { display: block; margin-top: 6px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+    kbd { padding: 2px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--wash); color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
     .feature-band { background: var(--black); color: #f4f0ec; }
     .feature-band .section-kicker { color: #e29277; }
     .feature-band .section-intro { color: #b9b2ac; }
@@ -142,7 +148,7 @@
     @media (max-width: 820px) {
       .nav-links { display: none; }
       .hero { padding-top: 58px; }
-      .facts, .feature-grid { grid-template-columns: 1fr; }
+      .facts, .feature-grid, .caps { grid-template-columns: 1fr; }
       .fact { border-right: 0; border-bottom: 1px solid var(--line); }
       .fact:last-child { border-bottom: 0; }
       .install-grid { grid-template-columns: 1fr; gap: 34px; }
@@ -184,6 +190,7 @@
       <a class="brand" href="#top"><img src="icon.png" alt="">K-Mux</a>
       <div class="nav-links">
         <a href="#usage">사용 모습</a>
+        <a href="#input">입력창</a>
         <a href="#features">기능</a>
         <a href="#install">설치</a>
         <a class="nav-release" href="https://github.com/rex-ingeni/K-Mux/releases">릴리스</a>
@@ -245,6 +252,23 @@
               <span class="usage-hint"><svg class="icon"><use href="#i-cols"/></svg>분할 타일 · 그룹 · 드래그로 재배치</span>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="input">
+      <div class="shell">
+        <div class="section-top">
+          <div><p class="section-kicker">Editor-grade input</p><h2>터미널 입력창인데, 에디터처럼.</h2></div>
+          <p class="section-intro">CLI의 입력줄을 그대로 쓰면서, macOS 텍스트 필드 같은 편집을 얹었습니다. 한글 입력(IME)에서도 안전하게 동작합니다.</p>
+        </div>
+        <div class="caps">
+          <div class="cap"><strong>마우스로 선택·이동</strong><span>클릭해서 커서를 옮기고, 드래그로 블록을 선택해 잘라내거나 지웁니다.</span></div>
+          <div class="cap"><strong>단어·줄 단위 이동</strong><span><kbd>⌥</kbd>+<kbd>←</kbd>/<kbd>→</kbd> 단어 단위, <kbd>⌘</kbd>+<kbd>←</kbd>/<kbd>→</kbd> 줄 처음·끝으로.</span></div>
+          <div class="cap"><strong>실행 취소 · 다시 실행</strong><span><kbd>⌘</kbd><kbd>Z</kbd> / <kbd>⇧⌘</kbd><kbd>Z</kbd> — 히스토리 방식이라 깜빡임 없이.</span></div>
+          <div class="cap"><strong>덮어쓰기 입력·붙여넣기</strong><span>블록을 선택한 채 입력하거나 붙여넣으면 그 자리에 바로 교체됩니다.</span></div>
+          <div class="cap"><strong>전체 선택 · 잘라내기</strong><span><kbd>⌘</kbd><kbd>A</kbd> / <kbd>⌘</kbd><kbd>X</kbd> — 여러 줄 입력도 정확하게.</span></div>
+          <div class="cap"><strong>Claude · Codex 모두</strong><span>테두리 있는 입력창과 없는 입력창을 자동으로 인식합니다.</span></div>
         </div>
       </div>
     </section>
