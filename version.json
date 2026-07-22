@@ -1,8 +1,8 @@
 {
-  "version": "0.2.0",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.0/K-Mux-0.2.0-arm64.zip",
-  "size": 100846400,
-  "sha256": "0ed79201bc3927a6c94003b8674590065e67522fbb098ab97b297f0c8a4b8388",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.0/K-Mux-0.2.0-arm64.dmg",
-  "notes": "0.2.0 — 분할 타일·그룹 개선(스플리터 독립·상단바 드래그 재배치·드래그 반반 분할·최소크기 보장), 테마 색상 14종 + 링크색 완화, TUI 핀치 줌(글씨 크기), 그룹 만들기 발견성(버튼·하단 액션바·우클릭 메뉴·1인 그룹 허용), cmux·tmux 세션 가져오기(claude/codex resume), Claude 권한 모드 피커, GUI 우측 Git 섹션, 소개 페이지 연결, 다수 버그픽스. 설치용 DMG + 자동 업데이트 zip."
+  "version": "0.2.1",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.1/K-Mux-0.2.1-arm64.zip",
+  "size": 100854519,
+  "sha256": "8c952e752760d2c1ac7573f2750d3b0baf3f07bc66a99ea43160439e036649b4",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.1/K-Mux-0.2.1-arm64.dmg",
+  "notes": "0.2.1 — 설정 확장(터미널 팔레트·자간/행간·글꼴 선택), cmux 멀티패널 워크스페이스 가져오기, 응답 중 표시(사이드바 회전 링, claude 훅 기반 — 켜짐/멈춤·권한 대기 배지·취소 감지), 테마 시스템 통합(앱 모드+터미널 팔레트를 미리보기 카드 하나로) + 테마 대폭 추가(Codigrate 컬렉션 12종·Solarized Dark/Light·Xcode Dark), 뷰어/설정 UI 정리. 설치용 DMG + 자동 업데이트 zip."
 }
