@@ -1,8 +1,8 @@
 {
-  "version": "0.2.1",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.1/K-Mux-0.2.1-arm64.zip",
-  "size": 100854519,
-  "sha256": "8c952e752760d2c1ac7573f2750d3b0baf3f07bc66a99ea43160439e036649b4",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.1/K-Mux-0.2.1-arm64.dmg",
-  "notes": "0.2.1 — 설정 확장(터미널 팔레트·자간/행간·글꼴 선택), cmux 멀티패널 워크스페이스 가져오기, 응답 중 표시(사이드바 회전 링, claude 훅 기반 — 켜짐/멈춤·권한 대기 배지·취소 감지), 테마 시스템 통합(앱 모드+터미널 팔레트를 미리보기 카드 하나로) + 테마 대폭 추가(Codigrate 컬렉션 12종·Solarized Dark/Light·Xcode Dark), 뷰어/설정 UI 정리. 설치용 DMG + 자동 업데이트 zip."
+  "version": "0.2.2",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.2/K-Mux-0.2.2-arm64.zip",
+  "size": 100862573,
+  "sha256": "357ae4a679d6ff1a206b1724b0b3592241d1d1a91410f8a00ae3365ea4205119",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.2/K-Mux-0.2.2-arm64.dmg",
+  "notes": "0.2.2 — 키보드 단축키 대폭 정비(cmux 스타일 네비게이션: 상위 탭 ⌃⌘][ · 그룹 내 세션 ⌘⇧][ · 분할 패널 방향 포커스 ⌥⌘화살표 · 확대↔그룹 토글 ⌘⇧↩ · 사이드바 ⌘B · 이름 변경 ⌘⇧R · 안 읽은 세션 점프 ⌘⇧U), 그룹 하위 탭바에 '+' 버튼(그룹 안에서 바로 새 세션), 설정에 단축키 설명표(접기/펼치기), 터미널 렌더링 안정화(세션 전환 시 빈 화면·깜빡임 완화, 하단 mode 상태줄이 모든 패널에서 바닥에 일정하게 정렬·잘림 해소). 설치용 DMG + 자동 업데이트 zip."
 }
