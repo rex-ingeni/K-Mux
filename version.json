@@ -4,5 +4,5 @@
   "size": 101651509,
   "sha256": "f5305edd965089ea5a79d1109e5d63d931e01ed1d01865b387a0cb49a08ad256",
   "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.8/K-Mux-0.2.8-arm64.dmg",
-  "notes": "변경점\n· PTY 종료 과정의 종료 감시 타이머 정리\n· AI 세션 세션 ID 추출 메뉴 추가\n· 오른쪽 창 메뉴의 GUI로 열기 제거\n\nDeveloper ID 서명 및 Apple 공증 완료"
+  "notes": "주요 변경점\n· 세션 복원 안정화: 보이는 세션·그룹 멤버 우선 순차 복원, 사라진 worktree의 안전한 복구\n· AI 협업 개선: 영구 서브에이전트, 입력·중지·재시도, 전사 복원, 제목 편집·인계 표시\n· 사용량 가시성: 계정별 Claude 플랜·컨텍스트 사용량과 백그라운드 작업 상태\n· 터미널 안정성: GPU(WebGL) 렌더링 복구 및 리사이즈·복원 안정화\n· 세션 관리: AI 제목 추천, 세션 ID 추출 메뉴, 오른쪽 창 GUI로 열기 제거\n· 종료 안정성: PTY 종료 감시 타이머 정리\n\nDeveloper ID 서명 및 Apple 공증 완료"
 }
