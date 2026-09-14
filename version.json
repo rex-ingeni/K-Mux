@@ -1,8 +1,8 @@
 {
-  "version": "0.2.8",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.8/K-Mux-0.2.8-arm64.zip",
-  "size": 101651509,
-  "sha256": "f5305edd965089ea5a79d1109e5d63d931e01ed1d01865b387a0cb49a08ad256",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.2.8/K-Mux-0.2.8-arm64.dmg",
-  "notes": "주요 변경점\n· 세션 복원 안정화: 보이는 세션·그룹 멤버 우선 순차 복원, 사라진 worktree의 안전한 복구\n· AI 협업 개선: 영구 서브에이전트, 입력·중지·재시도, 전사 복원, 제목 편집·인계 표시\n· 사용량 가시성: 계정별 Claude 플랜·컨텍스트 사용량과 백그라운드 작업 상태\n· 터미널 안정성: GPU(WebGL) 렌더링 복구 및 리사이즈·복원 안정화\n· 세션 관리: AI 제목 추천, 세션 ID 추출 메뉴, 오른쪽 창 GUI로 열기 제거\n· 종료 안정성: PTY 종료 감시 타이머 정리\n\nDeveloper ID 서명 및 Apple 공증 완료"
+  "version": "0.3.0",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.0/K-Mux-0.3.0-arm64.zip",
+  "size": 101375900,
+  "sha256": "ba8dce19ed09c1aecb16585295b01c2bb471f6dca0f70bc19818087f908cbf00",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.0/K-Mux-0.3.0-arm64.dmg",
+  "notes": "주요 변경점\n· 병렬 작업 그룹: 여러 세션을 각자의 git worktree 위에 띄우고 사이드바에서 한 그룹으로 묶습니다. 만들고·붙이고·띄우고·닫는 일을 Claude가 직접 합니다.\n· 병렬 작업 스킬 동봉: 작업을 어떻게 나누고 조율할지 적은 스킬을 앱이 함께 싣습니다. 설정에서 직접 고칠 수 있습니다.\n· 담아 둔 글: 고른 글을 ★로 담아 폴더로 묶고, 순서와 제목을 정합니다. 표는 표인 채로 다시 꺼냅니다.\n· 터미널 찾기(⌘F): 판 안에서 찾기가 실제로 동작합니다. 한글 입력 중에도 열립니다.\n· Slack 양방향 대화: Slack 스레드에서 그 판으로 바로 답을 보냅니다.\n· Webhook 알림: Kakao Work를 비롯한 Webhook으로 알림을 보냅니다.\n· 설정창 재편: 환경·작업 두 탭으로 나누고, 스킬 편집기를 그 안에 두었습니다.\n· 사이드바: 서브 세션을 접어 두고, 접힌 가지의 진행 상태를 부모 행 배지가 합집합으로 알립니다.\n\nDeveloper ID 서명 및 Apple 공증 완료"
 }
