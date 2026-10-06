@@ -1,8 +1,8 @@
 {
-  "version": "0.3.0",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.0/K-Mux-0.3.0-arm64.zip",
-  "size": 101375900,
-  "sha256": "ba8dce19ed09c1aecb16585295b01c2bb471f6dca0f70bc19818087f908cbf00",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.0/K-Mux-0.3.0-arm64.dmg",
-  "notes": "주요 변경점\n· 병렬 작업 그룹: 여러 세션을 각자의 git worktree 위에 띄우고 사이드바에서 한 그룹으로 묶습니다. 만들고·붙이고·띄우고·닫는 일을 Claude가 직접 합니다.\n· 병렬 작업 스킬 동봉: 작업을 어떻게 나누고 조율할지 적은 스킬을 앱이 함께 싣습니다. 설정에서 직접 고칠 수 있습니다.\n· 담아 둔 글: 고른 글을 ★로 담아 폴더로 묶고, 순서와 제목을 정합니다. 표는 표인 채로 다시 꺼냅니다.\n· 터미널 찾기(⌘F): 판 안에서 찾기가 실제로 동작합니다. 한글 입력 중에도 열립니다.\n· Slack 양방향 대화: Slack 스레드에서 그 판으로 바로 답을 보냅니다.\n· Webhook 알림: Kakao Work를 비롯한 Webhook으로 알림을 보냅니다.\n· 설정창 재편: 환경·작업 두 탭으로 나누고, 스킬 편집기를 그 안에 두었습니다.\n· 사이드바: 서브 세션을 접어 두고, 접힌 가지의 진행 상태를 부모 행 배지가 합집합으로 알립니다.\n\nDeveloper ID 서명 및 Apple 공증 완료"
+  "version": "0.3.1",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.1/K-Mux-0.3.1-arm64.zip",
+  "size": 130369510,
+  "sha256": "2f535bf92eb3894bc176da570f3f8d5107efbe065d0c773f57c4837b1fbd46b2",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.1/K-Mux-0.3.1-arm64.dmg",
+  "notes": "주요 변경점\n· ChatGPT 로컬 MCP: Secure Tunnel을 등록하면 ChatGPT가 이 Mac의 작업 폴더를 다룹니다. 파일 쓰기·명령 실행이 항상 켜져 있고 기본 작업 폴더는 홈이니, 필요한 폴더로 좁혀서 쓰세요.\n· 웹 플러그인: 폴더나 zip으로 설치·업데이트·제거합니다. 숨은 창으로 로그인하고 요청 속도를 조절합니다.\n· 진행도: 그룹 작업을 한 카드로 묶고, 정렬·저장소 필터와 완료 탭 '모두 제거'를 더했습니다.\n· 탭: 닫으면 이웃 탭으로 이동하고, .html 링크를 뷰어로 엽니다.\n· 안정성: 실제로 도는 백그라운드 작업만 표시하고, 병렬 그룹 상태를 정확히 보여 줍니다. 업데이트 뒤에도 Claude 세션을 이어서 엽니다.\n\nDeveloper ID 서명 및 Apple 공증 완료"
 }
