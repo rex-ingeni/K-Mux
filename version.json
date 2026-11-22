@@ -1,8 +1,8 @@
 {
   "version": "0.3.3",
   "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.3/K-Mux-0.3.3-arm64.zip",
-  "size": 129900446,
-  "sha256": "41c23f65b17ae7da12624bee59fceaa9deed2e7b3d7d5ca7007d950be649d341",
+  "size": 129900785,
+  "sha256": "24d2f1d4eb4093a7e3be19767f2b71a3e53aecb3cb913ca9a9fe38047c414c35",
   "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.3/K-Mux-0.3.3-arm64.dmg",
   "notes": "주요 변경점\n· 사이드바의 탭과 그룹을 핀으로 상단에 고정하고, 고정 순서를 바꿀 수 있습니다.\n· 사이드바에서 계정별 Claude·Codex 사용량을 확인할 수 있습니다.\n· 최신순에서 판을 끌어 놓아도 정렬이 바뀌지 않고 놓은 자리가 유지됩니다.\n· 판에 연결된 PR·Jira 이슈와 실행 기기를 사이드바에서 확인할 수 있습니다.\n· 새 Claude GUI 판은 자동 권한 모드로 시작하고, 채팅의 링크를 눌러 열 수 있습니다.\n· 서브에이전트가 도는 판에 백그라운드 표시가 나타납니다.\n\nDeveloper ID 서명 및 Apple 공증 완료"
 }
