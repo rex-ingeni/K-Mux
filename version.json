@@ -1,8 +1,8 @@
 {
-  "version": "0.3.3",
-  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.3/K-Mux-0.3.3-arm64.zip",
-  "size": 129900785,
-  "sha256": "24d2f1d4eb4093a7e3be19767f2b71a3e53aecb3cb913ca9a9fe38047c414c35",
-  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.3.3/K-Mux-0.3.3-arm64.dmg",
-  "notes": "주요 변경점\n· 사이드바의 탭과 그룹을 핀으로 상단에 고정하고, 고정 순서를 바꿀 수 있습니다.\n· 사이드바에서 계정별 Claude·Codex 사용량을 확인할 수 있습니다.\n· 최신순에서 판을 끌어 놓아도 정렬이 바뀌지 않고 놓은 자리가 유지됩니다.\n· 판에 연결된 PR·Jira 이슈와 실행 기기를 사이드바에서 확인할 수 있습니다.\n· 새 Claude GUI 판은 자동 권한 모드로 시작하고, 채팅의 링크를 눌러 열 수 있습니다.\n· 서브에이전트가 도는 판에 백그라운드 표시가 나타납니다.\n\nDeveloper ID 서명 및 Apple 공증 완료"
+  "version": "0.4.0",
+  "url": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.4.0/K-Mux-0.4.0-arm64.zip",
+  "size": 130035729,
+  "sha256": "8fac7b3534a5d95b8de1f5e71f5c5a423c85c5a1e771afc17e713cb490102501",
+  "dmg": "https://github.com/rex-ingeni/K-Mux/releases/download/v0.4.0/K-Mux-0.4.0-arm64.dmg",
+  "notes": "주요 변경점\n· 사용량이 늘수록 졸고 지치는 픽셀 캐릭터가 사이드바와 메뉴바에 나옵니다(고양이·12간지·랜덤, 설정에서 끌 수 있음).\n· 그림 한 장을 넣으면 연결된 Claude·Codex 계정의 AI가 캐릭터로 다시 그립니다. GIF 등은 그대로 가져오고, 큰 그림은 잘라 넣고, 이름도 바꿀 수 있습니다.\n· 메인 창을 닫아도 메뉴바에서 계정별 사용량을 보고, 팝오버로 상세를 확인할 수 있습니다.\n· Codex 리셋 크레딧을 계정별로 보고 확인을 거쳐 쓸 수 있습니다.\n· 사용량 창에서 새 판 기본 Claude 계정을 고르고, 계정을 추가·자동 발견하고, 표시 이름을 바꿀 수 있습니다.\n· CPU가 바쁠 때 설정의 글꼴 목록이 오래 걸리던 문제를 고쳤습니다."
 }
